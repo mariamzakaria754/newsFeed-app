@@ -16,12 +16,10 @@ function App() {
   const [error, setError] = useState(null);
   const [category, setCategory] = useState("general");
 
-  const abortController = useRef(new AbortController());
-
   async function loadData(query, category, page) {
-    const baseEndpoint = `https://newsapi.org/v2/top-headlines?country=eg&pageSize=${DEFAULT_PAGE_SIZE}&category=${category}&page=${page}&apiKey=${
-      import.meta.env.VITE_NEWS_API_KEY
-    }`;
+    const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
+
+    const baseEndpoint = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${DEFAULT_PAGE_SIZE}&category=${category}&page=${page}&apiKey=${API_KEY}`;
 
     const response = await fetch(
       query ? `${baseEndpoint}&q=${query}` : baseEndpoint,
@@ -52,11 +50,11 @@ function App() {
       };
     });
   }
-
+  const abortController = useRef(new AbortController());
   const fetchArticles = useCallback(
     debounce((query, category, page) => {
       setLoading(true);
-      setError(undefined);
+      setError(null);
       abortController.current.abort();
       abortController.current = new AbortController();
 

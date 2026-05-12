@@ -17,7 +17,7 @@ function NewsArticle(props) {
 
   return (
     <StyledCard>
-      <Link target="_blank" href={url}>
+      <Link target="_blank" href={url} rel="noopener noreferrer">
         <CardActionArea>
           {image && (
             <CardMedia
